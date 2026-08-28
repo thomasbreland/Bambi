@@ -3,7 +3,7 @@ ARG BUILD_NUMBER=n.a.
 ARG GIT_REV=n.a.
 
 # compile and test bambi
-FROM amazoncorretto:17-alpine-jdk as java-builder
+FROM amazoncorretto:17-alpine-jdk AS java-builder
 
 ARG VERSION
 ARG BUILD_NUMBER
@@ -23,6 +23,10 @@ RUN ./gradlew -i startScriptsHeadless installDist -PprojectVersion=${VERSION} -P
 
 # create final image
 FROM amazoncorretto:17-alpine
+
+RUN apk add --no-cache \
+    font-dejavu \
+    fontconfig
 
 ARG VERSION
 ARG BUILD_NUMBER
@@ -45,5 +49,3 @@ USER cip4
 EXPOSE 8080
 
 ENTRYPOINT ["/app/bin/bambi-headless"]
-
-
