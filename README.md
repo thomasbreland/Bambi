@@ -21,6 +21,18 @@ $ docker pull cip4/bambi:latest
 $ docker run -p 8080:8080 cip4/bambi:latest
 ```
 
+You can also run it with the GUI by setting an X11 display:
+
+```bash
+$ docker run -e DISPLAY="$DISPLAY" -p 8080:8080 bambi:latest
+```
+
+On some systems, e.g., WSL, you may need to mount the host's X11 Unix socket:
+
+```bash
+$ docker run -e DISPLAY="$DISPLAY" -v /tmp/.X11-unix:/tmp/.X11-unix -p 8080:8080 bambi:latest
+```
+
 ## Usage
 ### Job Submission
 There are multiple ways to submit jobs to Bambi. Besides the standardized JMF approach, Bambi also provides multiple simplifed ways to submit jobs. In the following is a list of the job submission methods. Sample JDF Jobs can be found in the project's [sample-jdfs](./sample-jdfs) folder:
